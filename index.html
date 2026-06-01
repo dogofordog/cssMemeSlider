@@ -7,13 +7,24 @@
     <meta name="description" content="Summer boot camp">
     <link rel="icon" href="/favicon.ico">
     <!-- добавить иконку -->
-    <link rel="stylesheet" href="/Css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
-<div class="main">
-    <div class="slider">
-    <img src="img/1.png" alt="картинка">
+<body>
+<main class="slider">
+    <figure class="slide">
+        <img src="img/pic1.jpeg" alt="cat">
+        <figcaption> Текст к первому мему</figcaption>
+    </figure>
+    <div>
+  <div class="controls">
+  <input type="radio" name="slide" id="slide1" class="control-input" checked>
+  <label for="slide1" class="control-label"></label>
+  <input type="radio" name="slide" id="slide2" class="control-input">
+  <label for="slide2" class="control-label"></label>
+  <input type="radio" name="slide" id="slide3" class="control-input">
+  <label for="slide3" class="control-label"></label>
 </div>
+    </div>
+</main>
 </body>
-
 </html>
