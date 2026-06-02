@@ -8,6 +8,71 @@ body {
   line-height: 1.5;
 }
 .slide img{
-width: 200px;
-height: 200px;
+max-width: 30rem; 
+height: auto;
+border-radius: 5%;
+}
+
+.slider{
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: black; 
+}
+
+
+.control-input{
+opacity: 0; 
+width: 0; 
+height: 0; 
+overflow: hidden; 
+position: static;
+
+}
+
+.controls{
+display: flex;
+justify-content: center;
+gap: 0.5rem;
+
+}
+.control-label{
+display: flex;
+color: transparent;
+width: 2rem;
+height: 2rem;
+background-color: blue;
+border: 0.2rem solid blue;
+border-radius: 50%;
+cursor: pointer;
+padding: 0.5rem;
+transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+}
+.control-label:hover{
+   border: 0.2rem solid azure;
+   background-color:azure;
+}
+
+.control-label:active{
+transform: scale(1.1);
+border: 0.2rem solid azure;
+
+}
+figcaption {
+     color:aliceblue ;
+     margin-top: 1rem; 
+     font-size: 1rem; 
+     text-align: left; }
+
+#slide1:checked+.control-label{
+    background-color: transparent;
+
+}
+#slide2:checked+.control-label{
+background-color: transparent;
+}
+#slide3:checked+.control-label{
+background-color: transparent;
 }
