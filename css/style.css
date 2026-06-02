@@ -7,28 +7,62 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
   line-height: 1.5;
 }
-.slide img{   
-max-width: 100%; 
-height: auto;
-border-radius: 2rem;
-grid-column: 1 / -1;
-box-shadow: 0 1rem 3rem rgba(0,0,0,0.6);
-}
-.slide{
-display: grid;
-grid-template-columns: 1fr auto; 
-gap: 1rem;    
-opacity: 0;
-max-height: 0; 
-max-width: 90vw;
-text-align: center;
-overflow: hidden;
-transition: opacity 0.4s ease, max-height 0.5s ease;
-order: 1;
+
+.slide {
+  display: grid;
+  grid-template-columns: 1fr auto;   
+  grid-template-rows: auto auto;     
+  gap: 1rem;
+  opacity: 0;
+  max-height: 0;
+  max-width: 90vw;
+  overflow: hidden;
+  transition: opacity 0.4s ease, max-height 0.5s ease;
 }
 
-.slider{
-  display: flex; 
+.slide img {
+  grid-column: 1 / -1;   
+  grid-row: 1;
+  max-width: 100%;
+  height: 55rem;
+  border: 0.3rem solid white;
+  border-radius: 2rem;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,0.6);
+  object-fit: contain;
+  background-color: #1a0a2e;
+}
+
+
+figcaption {
+  color: aliceblue;
+  font-size: 1.4rem;             
+  font-weight: 700;              
+  line-height: 1.4;              
+  letter-spacing: 0.02rem;       
+  text-align: left;
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: start;
+  align-self: center;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.2s;
+  text-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.6);
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;    
+  align-self: center;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.3s;
+}
+
+.slider {
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -36,69 +70,75 @@ order: 1;
   background: linear-gradient(135deg, #0f0f1a 0%, #1a0a2e 100%);
 }
 
-.control-input{
-opacity: 0; 
-width: 0; 
-height: 0; 
-overflow: hidden; 
-position: static;
-
+.control-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
-.controls{
-display: flex;
-justify-content: center;
-gap: 0.5rem;
-
-}
-.control-label{
-display: flex;
-color: transparent;
-width: 2rem;
-height: 2rem;
-background-color: blue;
-border: 0.2rem solid blue;
-border-radius: 50%;
-cursor: pointer;
-padding: 0.5rem;
-transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
-}
-.control-label:hover{
-   border: 0.2rem solid azure;
-   background-color:azure;
+.control-label {
+  display: flex;
+  color: transparent;
+  width: 2rem;
+  height: 2rem;
+  background-color: blue;
+  border: 0.2rem solid blue;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 1rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
 }
 
-.control-label:active{
-transform: scale(1.1);
-border: 0.2rem solid azure;
+.control-label:hover {
+  border: 0.2rem solid azure;
+  background-color: azure;
+}
 
+.control-label:active {
+  transform: scale(1.1);
 }
-figcaption {
-     color:aliceblue ;
-     margin-top: 1rem; 
-     font-size: 1rem; 
-     text-align: left; }
 
-#slide-1:checked~.slide-1 .controls .control-label[for="slide-1"] {
-background-color: transparent;
-}
-#slide-2:checked~.slide-2 .controls .control-label[for="slide-2"] {
-background-color: transparent;
-}
-#slide-3:checked~.slide-3 .controls .control-label[for="slide-3"] {
-background-color: transparent;
-}
-#slide-4:checked~.slide-4 .controls .control-label[for="slide-4"] {
-background-color: transparent;
-}
-#slide-1:checked ~ .slide-1 { opacity: 1; max-height: 70rem; }
-#slide-2:checked ~ .slide-2 { opacity: 1; max-height: 70rem; }
-#slide-3:checked ~ .slide-3 { opacity: 1; max-height: 70rem; }
-#slide-4:checked ~ .slide-4 { opacity: 1; max-height: 90rem; }
 
-@media (max-width: 768px){
-    .slide{
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
+#slide-1:checked ~ .slide-1 .controls .control-label[for="slide-1"],
+#slide-2:checked ~ .slide-2 .controls .control-label[for="slide-2"],
+#slide-3:checked ~ .slide-3 .controls .control-label[for="slide-3"],
+#slide-4:checked ~ .slide-4 .controls .control-label[for="slide-4"] {
+  background-color: transparent;
+  border-color: azure;
+}
+
+
+#slide-1:checked ~ .slide-1 figcaption,
+#slide-1:checked ~ .slide-1 .controls,
+#slide-2:checked ~ .slide-2 figcaption,
+#slide-2:checked ~ .slide-2 .controls,
+#slide-3:checked ~ .slide-3 figcaption,
+#slide-3:checked ~ .slide-3 .controls,
+#slide-4:checked ~ .slide-4 figcaption,
+#slide-4:checked ~ .slide-4 .controls {
+  opacity: 1;
+}
+
+#slide-1:checked ~ .slide-1 { opacity: 1; max-height: 75rem; }
+#slide-2:checked ~ .slide-2 { opacity: 1; max-height: 75rem; }
+#slide-3:checked ~ .slide-3 { opacity: 1; max-height: 75rem; }
+#slide-4:checked ~ .slide-4 { opacity: 1; max-height: 75rem; }
+
+@media (max-width: 768px) {
+  .slide {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    text-align: center;
+  }
+  .slide img,
+  figcaption,
+  .controls {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: center;
+  }
+  .controls {
+    justify-content: center;
+  }
 }
