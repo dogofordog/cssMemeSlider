@@ -7,10 +7,21 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
   line-height: 1.5;
 }
-.slide img{
-max-width: 30rem; 
+.slide img{   
+max-width: 100%; 
+max-height: 100rem;
 height: auto;
-border-radius: 5%;
+border: 0.2rem solid white;
+border-radius: 2rem;
+}
+.slide{
+opacity: 0;
+max-height: 0; 
+text-align: center;
+overflow: hidden;
+transition: opacity 0.4s ease, max-height 0.5s ease;
+order: 1;
+width:100%;
 }
 
 .slider{
@@ -36,6 +47,8 @@ position: static;
 display: flex;
 justify-content: center;
 gap: 0.5rem;
+order: 2;
+
 
 }
 .control-label{
@@ -64,15 +77,21 @@ figcaption {
      color:aliceblue ;
      margin-top: 1rem; 
      font-size: 1rem; 
-     text-align: left; }
+     text-align: center; }
 
-#slide1:checked+.control-label{
+#slide-1:checked~.controls .control-label[for="slide-1"] {
     background-color: transparent;
-
 }
-#slide2:checked+.control-label{
+#slide-2:checked~.controls .control-label[for="slide-2"] {
 background-color: transparent;
 }
-#slide3:checked+.control-label{
+#slide-3:checked~.controls .control-label[for="slide-3"] {
 background-color: transparent;
 }
+#slide-4:checked~.controls .control-label[for="slide-4"] {
+background-color: transparent;
+}
+#slide-1:checked ~ .slide-1 { opacity: 1; max-height: 70rem; }
+#slide-2:checked ~ .slide-2 { opacity: 1; max-height: 70rem; }
+#slide-3:checked ~ .slide-3 { opacity: 1; max-height: 70rem; }
+#slide-4:checked ~ .slide-4 { opacity: 1; max-height: 90rem; }

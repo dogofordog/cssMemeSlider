@@ -1,29 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Meme Slider </title>
-    <meta name="description" content="Summer boot camp">
-    <link rel="icon" href="favicon.ico">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Meme Slider</title>
+    <meta name="description" content="Summer boot camp" />
+    <link rel="icon" href="favicon.ico" />
     <!-- добавить иконку -->
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-<main class="slider">
-    <figure class="slide">
-        <img src="img/pic1.JPG" alt="cat">
-        <figcaption> Текст к первому мему</figcaption>
-    </figure>
-  <div class="controls">
-  <input type="radio" name="slide" id="slide1" class="control-input" checked>
-  <label for="slide1" class="control-label">&bull;</label>
-  <input type="radio" name="slide" id="slide2" class="control-input">
-  <label for="slide2" class="control-label">&bull;</label>
-  <input type="radio" name="slide" id="slide3" class="control-input">
-  <label for="slide3" class="control-label">&bull;</label>
-  </div>
-
-</main>
-</body>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main class="slider">
+      <input
+        type="radio"
+        name="slide"
+        id="slide-1"
+        class="control-input"
+        checked
+      />
+      <input type="radio" name="slide" id="slide-2" class="control-input" />
+      <input type="radio" name="slide" id="slide-3" class="control-input" />
+        <input type="radio" name="slide" id="slide-4" class="control-input" />
+      <div class="controls">
+        <label for="slide-1" class="control-label">&bull;</label>
+        <label for="slide-2" class="control-label">&bull;</label>
+        <label for="slide-3" class="control-label">&bull;</label>
+        <label for="slide-4" class="control-label">&bull;</label>
+      </div>
+      <figure class="slide slide-1">
+        <img src="img/1-image.JPG" alt="work at home" />
+        <figcaption>Текст к первому мему</figcaption>
+      </figure>
+      <figure class="slide slide-2">
+        <img src="img/2-image.JPG" alt="cat" />
+        <figcaption>Текст к первому мему</figcaption>
+      </figure>
+      <figure class="slide slide-3">
+        <img src="img/3-image.JPG" alt="cat" />
+        <figcaption>Текст к первому мему</figcaption>
+      </figure>
+      <figure class="slide slide-4">
+        <img src="img/4-image.JPG" alt="cat" />
+        <figcaption>Текст к первому мему</figcaption>
+      </figure>
+    </main>
+  </body>
 </html>
