@@ -10,9 +10,9 @@ body {
 .slide img{   
 max-width: 100%; 
 height: auto;
-border: 0.9rem solid white;
 border-radius: 2rem;
 grid-column: 1 / -1;
+box-shadow: 0 1rem 3rem rgba(0,0,0,0.6);
 }
 .slide{
 display: grid;
@@ -33,7 +33,7 @@ order: 1;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: black; 
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a0a2e 100%);
 }
 
 .control-input{
