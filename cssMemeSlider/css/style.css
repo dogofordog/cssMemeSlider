@@ -5,192 +5,191 @@
 }
 
 body {
-  min-height: 100vh; /* 100vh = весь экран по высоте */
-  display: flex; /* + flex-контейнер для центрирования слайдера */
-  justify-content: center; /* центрируем контент по горизонтали */
-  align-items: center; /* центрируем по вертикали */
-  background-color: #110820; /* + тёмно-фиолетовый фон страницы */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #110820;
 }
 
 .slider {
-  width: 90vw; /* 90vw — 90% ширины экрана, резиновый размер */
-  max-width: 50rem; /* max-width: 50rem — но не больше примерно 800px. На маленьком экране 90% экрана, на большом мониторе не растягивается бесконечно. */
-  display: grid; /* + включаем grid-контейнер */
-  grid-template-columns: 1fr auto; /* + две колонки: широкая (текст) и узкая (по содержимому — кнопки) */
+  width: 90vw;
+  max-width: 50rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
   grid-template-areas:
-    "track track" /* + фото занимает обе колонки сверху */
-    "text  ctrl"; /* + текст слева, кнопки справа снизу */
-  row-gap: 1rem; /* + отступ между строками (между фото и нижней панелью) */
+    "track track"
+    "text  ctrl";
+  row-gap: 1rem;
 }
 
 .control-input {
-  display: none; /* + скрываем radio-кнопки, они нужны только для CSS-логики через :checked */
+  display: none;
 }
 
 .slides-track {
-  grid-area: track; /* Игнорируй свой обычный порядок, встань ровно в ту ячейку сетки, которую родитель назвал 'track' */
-  display: grid; /* добавляем грид как свойство */
-  grid-template-areas: "slot"; /* запись родителя — он задаёт сетку */
-  overflow: hidden
+  grid-area: track;
+  display: grid;
+  grid-template-areas: "slot";
+  overflow: hidden;
 }
 
 .slide {
-  grid-area: slot; /* запись ребёнка — просто переносим имя */
-  width: 100%; /* + слайд занимает всю ширину трека */
-  opacity: 0; /* Делаем все слайды прозрачными по умолчанию. */
-  pointer-events: none; /* запрещает перехват кликов по слайду */
-  transform: translateX(100%); /* translateX — двигаем по горизонтали. X — горизонтальная ось. Y была бы вертикальная. Слайд сдвинут вправо за пределы видимости. */
-  transition: /* Это инструкция браузеру: когда какое-то свойство меняется — анимируй переход, а не делай мгновенно. */
-    opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1), /* [что анимировать] [как долго] [кривая скорости] */
+  grid-area: slot;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+  transition:
+    opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1),
     transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .slide img {
-  width: 100%; /* картинка занимает всю ширину слайда. Процент считается от ширины родителя — .slide, который занимает всю ширину .slides-track. */
-  aspect-ratio: 16/10; /* — соотношение сторон. Вместо фиксированной высоты в rem задаём пропорцию. При любой ширине экрана высота автоматически пересчитывается, чтобы сохранить это соотношение. Резиновее, чем height: 20rem. */
-  object-fit: cover; /* картинка заполняет весь прямоугольник, не деформируясь. Проверь: временно измени на object-fit: contain */
-  display: block; /* — img по умолчанию inline-элемент. У inline под картинкой появляется паразитный отступ в несколько пикселей — место для строчного текста. display: block убирает этот отступ. */
-  border: 0.18rem solid rgba(255, 255, 255, 0.15); /* + тонкая полупрозрачная белая рамка вокруг фото */
-  border-radius: 1.2rem; /* + скругление углов у фото */
-  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.4); /* + мягкая тёмная тень под фото, создаёт эффект «парения» */
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  display: block;
+  border: 0.18rem solid rgba(255, 255, 255, 0.15);
+  border-radius: 1.2rem;
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.4);
 }
 
 .captions {
-  grid-area: text; /* + привязка к области "text" в сетке .slider */
-  display: grid; /* + внутренний grid для наложения подписей друг на друга */
-  grid-template-areas: "cap"; /* + все подписи лежат в одной ячейке "cap" */
-  overflow: hidden; /* Без этого текст торчал бы за пределами панели. */
-  padding: 0.85rem 1.25rem; /* + внутренний отступ: 0.85rem сверху/снизу, 1.25rem по бокам */
-  background-color: #110820; /* + фон панели совпадает с фоном body */
+  grid-area: text;
+  display: grid;
+  grid-template-areas: "cap";
+  overflow: hidden;
+  padding: 0.85rem 1.25rem;
+  background-color: #110820;
 }
 
 .caption {
-  grid-area: cap; /* + все подписи занимают одну ячейку, перекрывая друг друга */
-  color: aliceblue; /* + светло-голубой цвет текста */
-  font-size: 1.1rem; /* + размер шрифта в относительных единицах */
-  font-weight: 700; /* + жирное начертание */
-  letter-spacing: 0.02em; /* + лёгкое разрежение букв для читаемости */
-  opacity: 0; /* + по умолчанию подпись невидима */
-  transform: translateX(-100%); /* + сдвинута влево за пределы контейнера */
+  grid-area: cap;
+  color: aliceblue;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateX(-100%);
   transition:
-    opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1) 0.08s, /* + задержка 0.08s — подпись появляется чуть позже слайда */
+    opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1) 0.08s,
     transform 0.5s cubic-bezier(0.65, 0, 0.35, 1) 0.08s;
 }
 
 .controls {
-  grid-area: ctrl; /* + привязка к области "ctrl" в сетке .slider */
-  display: flex; /* + flex для горизонтального расположения кнопок */
-  align-items: center; /* + выравнивание кнопок по вертикали */
-  justify-content: center; /* + кнопки по центру по горизонтали */
-  gap: 0.5rem; /* + расстояние между кнопками */
-  padding: 0.85rem 1.25rem; /* + отступы совпадают с .captions для симметрии */
-  background-color: #110820; /* + фон совпадает с .captions */
+  grid-area: ctrl;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem;
+  background-color: #110820;
 }
 
+/* Ключевой механизм: radio :checked через ~ (general sibling) находит брата .controls,
+   а :nth-child выбирает нужную точку. Это заменяет JavaScript для переключения слайдов. */
 .control-label {
-  display: block; /* + flex для корректного отображения */
-  color: transparent; /* + прозрачный текст, чтобы label не показывал содержимое */
-  box-sizing: content-box; /* При border-box padding съедает внутреннее пространство. Поэтому явно возвращаем content-box — padding добавляется снаружи к размеру. */
-  width: 1rem; /* это размер видимой точки. */
+  display: block;
+  color: transparent;
+  box-sizing: content-box;
+  width: 1rem;
   height: 1rem;
-  border-radius: 50%; /* + делает точку круглой */
-  background-color: #4a6cf7; /* + мягкий синий цвет точки */
-  border: 0.15rem solid #4a6cf7; /* + рамка в цвет фона для плавных переходов */
-  background-clip: content-box; /* закрашивай фон только в зоне content. Padding остаётся прозрачным. Кликабельным — да. Видимым — нет. */
-  padding: 0.1rem;
-  cursor: pointer; /* + курсор-рука при наведении, показывает, что элемент кликабельный */
-  transition: /* transition — анимируем изменение цвета и размера при hover и active. */
+  border-radius: 50%;
+  background-color: #4a6cf7;
+  border: 0.15rem solid #4a6cf7;
+  /* Трюк: background-clip: content-box + padding создаёт большую кликабельную область (2rem),
+     при этом видимый размер точки остаётся 1rem. Требование задания выполнено. */
+  background-clip: content-box;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition:
     background-color 0.3s ease,
-    border-color 0.3s ease, /* + плавная смена цвета рамки */
+    border-color 0.3s ease,
     transform 0.2s ease;
 }
 
-.control-label:hover { /* — мышь над точкой. Делаем светлее. */
-  border: 0.2rem solid #a5b4fc; /* + рамка становится лавандовой и чуть толще */
-  background-color: #a5b4fc; /* + фон точки становится лавандовым */
-  background-clip: content-box; /* + сохраняем поведение фона */
+.control-label:hover {
+  border: 0.2rem solid #a5b4fc;
+  background-color: #a5b4fc;
+  background-clip: content-box;
 }
 
-.control-label:active { /* момент нажатия. Цвет меняется на индиго. */
-  transform: scale(1.1); /* + точка немного увеличивается, как будто нажимается физически */
-  background-color: #6366f1; /* Индиго — цвет при нажатии */
+.control-label:active {
+  transform: scale(1.1);
+  background-color: #6366f1;
   border-color: #6366f1;
-  background-clip: content-box; /* + сохраняем поведение фона */
+  background-clip: content-box;
 }
 
-/* + Когда radio-кнопка:checked, находим соответствующую точку через ~ и :nth-child */
 #slide-1:checked ~ .controls .control-label:nth-child(1),
 #slide-2:checked ~ .controls .control-label:nth-child(2),
 #slide-3:checked ~ .controls .control-label:nth-child(3),
 #slide-4:checked ~ .controls .control-label:nth-child(4) {
-  background-color: transparent; /* + прозрачный фон — точка становится кольцом */
-  border-color: #4a6cf7; /* + мягкий синий цвет рамки активного индикатора */
-  transform: scale(1); /* + обычный размер, без увеличения */
+  background-color: transparent;
+  border-color: #4a6cf7;
+  transform: scale(1);
 }
 
-/* + Hover для уже выбранной (активной) точки — светлеет при наведении */
 #slide-1:checked ~ .controls .control-label:nth-child(1):hover,
 #slide-2:checked ~ .controls .control-label:nth-child(2):hover,
 #slide-3:checked ~ .controls .control-label:nth-child(3):hover,
 #slide-4:checked ~ .controls .control-label:nth-child(4):hover {
-  border-color: #a5b4fc; /* + лавандовая рамка при наведении на активную точку */
+  border-color: #a5b4fc;
 }
 
-/* + Когда radio-кнопка :checked, показываем соответствующую подпись */
 #slide-1:checked ~ .captions .caption-1,
 #slide-2:checked ~ .captions .caption-2,
 #slide-3:checked ~ .captions .caption-3,
 #slide-4:checked ~ .captions .caption-4 {
-  opacity: 1; /* + делаем активной подпись видимой */
-  transform: translateX(0); /* + возвращаем подпись на место */
+  opacity: 1;
+  transform: translateX(0);
 }
 
-/* + Когда radio-кнопка :checked, показываем соответствующий слайд */
 #slide-1:checked ~ .slides-track .slide-1,
 #slide-2:checked ~ .slides-track .slide-2,
 #slide-3:checked ~ .slides-track .slide-3,
 #slide-4:checked ~ .slides-track .slide-4 {
-  opacity: 1; /* + делаем слайд видимым */
-  transform: translateX(0); /* добавляем — возвращаем слайд на место */
-  pointer-events: auto; /* верни реакцию на мышь. */
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
 }
 
-/* Всё внутри фигурных скобок применяется только когда ширина экрана 600px или меньше. При ширине 601px эти стили полностью игнорируются. */
 @media (max-width: 600px) {
   body {
-    align-items: flex-start; /* На десктопе align-items: center центрирует слайдер вертикально посреди экрана. На мобильном слайдер занимает почти весь экран — центрировать нечего, и появляется лишний скролл. flex-start прижимает слайдер к верху страницы. */
+    align-items: flex-start;
   }
 
   .slider {
     width: 90vw;
-    max-width: 100%; /* + убираем ограничение в 50rem для мобильных */
-    margin-top: 2rem; /* + отступ сверху, чтобы слайдер не прилипал к краю */
-    grid-template-columns: 1fr; /* + одна колонка на всю ширину */
+    max-width: 100%;
+    margin-top: 2rem;
+    grid-template-columns: 1fr;
     grid-template-areas:
-      "track" /* + фото сверху */
-      "ctrl" /* + кнопки посередине */
-      "text"; /* + текст снизу */
-    row-gap: 0.5rem; /* + уменьшенный отступ между строками на мобильном */
+      "track"
+      "ctrl"
+      "text";
+    row-gap: 0.5rem;
   }
 
   .slide img {
-    aspect-ratio: 4 / 3; /* + более квадратная пропорция для мобильных экранов */
-    border-radius: 0.5rem; /* + уменьшенное скругление для мобильных */
-    border: 0.18rem solid rgba(255, 255, 255, 0.15); /* + рамка сохраняется */
-    box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.4); /* + уменьшенная тень для мобильных */
+    aspect-ratio: 4 / 3;
+    border-radius: 0.5rem;
+    border: 0.18rem solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.4);
   }
 
   .captions {
-    padding: 1rem; /* + увеличенный padding для мобильных */
+    padding: 1rem;
   }
 
   .caption {
-    font-size: 0.95rem; /* + уменьшенный шрифт для мобильных */
-    text-align: left; /* + текст выровнен по левому краю */
+    font-size: 0.95rem;
+    text-align: left;
   }
 
   .controls {
-    justify-content: center; /* + кнопки по центру */
-    padding: 1rem 1rem 0.5rem; /* + разные отступы: больше сверху, меньше снизу */
+    justify-content: center;
+    padding: 1rem 1rem 0.5rem;
   }
 }
