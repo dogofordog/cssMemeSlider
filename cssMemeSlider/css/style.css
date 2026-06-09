@@ -110,7 +110,7 @@ body {
 }
 
 .control-label:hover {
-  border: 0.2rem solid #a5b4fc;
+  border: 0.15rem solid #a5b4fc;
   background-color: #a5b4fc;
   background-clip: content-box;
 }
