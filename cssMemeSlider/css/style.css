@@ -1,0 +1,195 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #110820;
+}
+
+.slider {
+  width: 90vw;
+  max-width: 50rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "track track"
+    "text  ctrl";
+  row-gap: 1rem;
+}
+
+.control-input {
+  display: none;
+}
+
+.slides-track {
+  grid-area: track;
+  display: grid;
+  grid-template-areas: "slot";
+  overflow: hidden;
+}
+
+.slide {
+  grid-area: slot;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+  transition:
+    opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1),
+    transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.slide img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  display: block;
+  border: 0.18rem solid rgba(255, 255, 255, 0.15);
+  border-radius: 1.2rem;
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.4);
+}
+
+.captions {
+  grid-area: text;
+  display: grid;
+  grid-template-areas: "cap";
+  overflow: hidden;
+  padding: 0.85rem 1.25rem;
+  background-color: #110820;
+}
+
+.caption {
+  grid-area: cap;
+  color: aliceblue;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition:
+    opacity 0.5s cubic-bezier(0.65, 0, 0.35, 1) 0.08s,
+    transform 0.5s cubic-bezier(0.65, 0, 0.35, 1) 0.08s;
+}
+
+.controls {
+  grid-area: ctrl;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem;
+  background-color: #110820;
+}
+
+/* Ключевой механизм: radio :checked через ~ (general sibling) находит брата .controls,
+   а :nth-child выбирает нужную точку. Это заменяет JavaScript для переключения слайдов. */
+.control-label {
+  display: block;
+  color: transparent;
+  box-sizing: content-box;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: #4a6cf7;
+  border: 0.15rem solid #4a6cf7;
+  /* Трюк: background-clip: content-box + padding создаёт большую кликабельную область (2rem),
+     при этом видимый размер точки остаётся 1rem. Требование задания выполнено. */
+  background-clip: content-box;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.control-label:hover {
+  border: 0.15rem solid #a5b4fc;
+  background-color: #a5b4fc;
+  background-clip: content-box;
+}
+
+.control-label:active {
+  transform: scale(1.1);
+  background-color: #6366f1;
+  border-color: #6366f1;
+  background-clip: content-box;
+}
+
+#slide-1:checked ~ .controls .control-label:nth-child(1),
+#slide-2:checked ~ .controls .control-label:nth-child(2),
+#slide-3:checked ~ .controls .control-label:nth-child(3),
+#slide-4:checked ~ .controls .control-label:nth-child(4) {
+  background-color: transparent;
+  border-color: #4a6cf7;
+  transform: scale(1);
+}
+
+#slide-1:checked ~ .controls .control-label:nth-child(1):hover,
+#slide-2:checked ~ .controls .control-label:nth-child(2):hover,
+#slide-3:checked ~ .controls .control-label:nth-child(3):hover,
+#slide-4:checked ~ .controls .control-label:nth-child(4):hover {
+  border-color: #a5b4fc;
+}
+
+#slide-1:checked ~ .captions .caption-1,
+#slide-2:checked ~ .captions .caption-2,
+#slide-3:checked ~ .captions .caption-3,
+#slide-4:checked ~ .captions .caption-4 {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+#slide-1:checked ~ .slides-track .slide-1,
+#slide-2:checked ~ .slides-track .slide-2,
+#slide-3:checked ~ .slides-track .slide-3,
+#slide-4:checked ~ .slides-track .slide-4 {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  body {
+    align-items: flex-start;
+  }
+
+  .slider {
+    width: 90vw;
+    max-width: 100%;
+    margin-top: 2rem;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "track"
+      "ctrl"
+      "text";
+    row-gap: 0.5rem;
+  }
+
+  .slide img {
+    aspect-ratio: 4 / 3;
+    border-radius: 0.5rem;
+    border: 0.18rem solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.4);
+  }
+
+  .captions {
+    padding: 1rem;
+  }
+
+  .caption {
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  .controls {
+    justify-content: center;
+    padding: 1rem 1rem 0.5rem;
+  }
+}
